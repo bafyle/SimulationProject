@@ -2,7 +2,6 @@ package simulationproject;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 public class Algo
 {
     private ArrayList<SimulationStep> steps;
