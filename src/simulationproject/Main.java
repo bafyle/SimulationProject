@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package simulationproject;
-
+import GUI.*;
+import javax.swing.*;
+import java.awt.*;
 /**
  *
  * @author Andrew-PC
@@ -16,6 +18,10 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        JFrame f=new JFrame();
+        MainFrame test=new MainFrame();
+        test.FrameConfigration(f);
     }
     
 }
