@@ -47,7 +47,7 @@ public class Algo
         }
         return res;
     }
-    public double getExcpectedValue()
+    public double getExpectedValue()
     {
         double result = 0.0;
         for(var s : steps)
