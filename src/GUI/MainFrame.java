@@ -23,15 +23,19 @@ public class MainFrame {
         //
         //welcome label
        JLabel welcome=new JLabel("Welcome to Monte Carlo method"); 
-       welcome.setBounds(300,50,250,60);
+      welcome.setBounds(200,50,400,60);
        welcome.setFont(new Font("Tahoma", 0, 24));
-        welcome.setVisible(true);
+        
         //
-        JTextArea A=new JTextArea("");
+        JTextArea A=new JTextArea("our algorithm is designed to simulate your problem and find the best solution for it ");
+        A.setBounds(0,150,400,300);
+        A.setFont(new Font("Tahoma", 0, 24));
+        JScrollPane w=new JScrollPane(A);
+        w.setBounds(400,150,500,300);
         
-        
-        
-        
+        //
+        f.add(w);
+        f.add(A);
         f.add(welcome);
         f.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
           
