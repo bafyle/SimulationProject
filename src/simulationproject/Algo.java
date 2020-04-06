@@ -38,7 +38,7 @@ public class Algo
         {
             Random rand = new Random();
             int randNumber = rand.nextInt((100 - 0) + 1) + 0;
-            for(var s : steps)
+            for(SimulationStep s : steps)
             {
                 if(randNumber >= s.rangeMin && randNumber <= s.rangeMax)
                     res += s.uniqueNumber;
@@ -49,7 +49,7 @@ public class Algo
     public double getExpectedValue()
     {
         double result = 0.0;
-        for(var s : steps)
+        for(SimulationStep s : steps)
         {
             result += s.probabilty * s.uniqueNumber;
         }
