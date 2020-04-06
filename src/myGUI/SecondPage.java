@@ -6,6 +6,9 @@
 package myGUI;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import simulationproject.*;
 
 /**
  *
@@ -22,7 +25,22 @@ public class SecondPage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         txt.requestFocus();
     }
-
+    public int numberOfSteps;
+    private double coms = 0.0;
+    private int lastRange = 1;
+    private ArrayList<SimulationStep> steps = new ArrayList<>();
+    public void setNumberOfSteps(int s)
+    {
+        numberOfSteps = s;
+    }
+    
+    public javax.swing.table.DefaultTableModel addRow(String []newRow)
+    {
+        javax.swing.table.DefaultTableModel returningModel = (javax.swing.table.DefaultTableModel)jTable1.getModel();
+        returningModel.addRow(newRow);
+        return returningModel;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,13 +71,10 @@ public class SecondPage extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Numbers of failure", "Frequency", "Probability", "Cumulative Probability", "Interval of Random Numbers"
+                "Numbers of failure", "Probability", "Cumulative Probability", "Interval of Random Numbers"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -76,6 +91,11 @@ public class SecondPage extends javax.swing.JFrame {
         jLabel1.setText("Probability");
 
         txt.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        txt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtActionPerformed(evt);
+            }
+        });
         txt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtKeyPressed(evt);
@@ -90,6 +110,7 @@ public class SecondPage extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -161,7 +182,40 @@ public class SecondPage extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        String getText = txt.getText().trim();
+        String getText2 = jTextField1.getText().trim();
+        int uniqueNumber;
+        double probabilty;
+        try
+        {
+            uniqueNumber = Integer.parseInt(getText);
+            probabilty = Double.parseDouble(getText2);
+            if(uniqueNumber < 0 || probabilty < 0 )
+                JOptionPane.showMessageDialog(this, "Please fill the fields with right value");
+            else if(probabilty >= 1)
+                JOptionPane.showMessageDialog(this, "Please fill the fields with right value");
+            else
+            {
+                SimulationStep s = new SimulationStep();
+                coms += probabilty;
+                s.comulative = coms;
+                s.probabilty = probabilty;
+                s.rangeMin = lastRange;
+                s.rangeMax = (int)(coms * 100);
+                s.uniqueNumber = uniqueNumber;
+                steps.add(s);
+                String range = lastRange + "to " + coms * 100;
+                lastRange = (int)(coms * 100) + 1;
+                String []row = {Integer.toString(uniqueNumber), Double.toString(probabilty), Double.toString(coms), range};
+                addRow(row);
+            }
+        }
+        catch(NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(this, "Please fill the fields with right value");
+        }
         txt.setText("");
+        jTextField1.setText("");
         txt.requestFocus();
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -183,12 +237,16 @@ public class SecondPage extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new Result().setVisible(true);
+        new Result(steps).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtActionPerformed
 
     /**
      * @param args the command line arguments

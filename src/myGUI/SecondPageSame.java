@@ -22,7 +22,11 @@ public class SecondPageSame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         txt.requestFocus();
     }
-
+    public int numberOfSteps;
+    public void setNumberOfSteps(int s)
+    {
+        numberOfSteps = s;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

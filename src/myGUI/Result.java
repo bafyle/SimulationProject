@@ -9,11 +9,15 @@ package myGUI;
  *
  * @author Gerges hanna FCI-H
  */
+import java.util.Random;
+import java.util.ArrayList;
+import simulationproject.*;
 public class Result extends javax.swing.JFrame {
 
     /**
      * Creates new form Result
      */
+    private ArrayList<SimulationStep> steps;
     public Result() {
         initComponents();
         this.setSize(1280, 720);
@@ -21,7 +25,16 @@ public class Result extends javax.swing.JFrame {
         spCount.requestFocus();
         txtavg.setEditable(false);
     }
-
+    public Result(ArrayList<SimulationStep> s){
+        this();
+        steps = s;
+    }
+    public javax.swing.table.DefaultTableModel addRow(String []newRow)
+    {
+        javax.swing.table.DefaultTableModel returningModel = (javax.swing.table.DefaultTableModel)jTable1.getModel();
+        returningModel.addRow(newRow);
+        return returningModel;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,19 +65,26 @@ public class Result extends javax.swing.JFrame {
         spCount.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
 
         jButton2.setText("Done");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Average:");
 
         txtavg.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         txtavg.setText("Avg ");
+        txtavg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtavgActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Period", "Random Number", "Simulated Number during this period"
@@ -128,6 +148,33 @@ public class Result extends javax.swing.JFrame {
         new Home().setVisible(true);
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int simulationAccuracy = (int)spCount.getValue();
+        double res = 0.0;
+        for(int i = 0; i < simulationAccuracy; i++)
+        {
+            Random rand = new Random();
+            int randNumber = rand.nextInt((100 - 1) + 1) + 1;
+            int uni = 0;
+            for(SimulationStep s : steps)
+            {
+                
+                if(randNumber >= s.rangeMin && randNumber <= s.rangeMax)
+                {
+                    uni = s.uniqueNumber;
+                    res += s.uniqueNumber;
+                }   
+            }
+            String []newRow = {Integer.toString(i+1), Integer.toString(randNumber), Integer.toString(uni)};
+            addRow(newRow);
+        }
+        txtavg.setText(Double.toString(res / simulationAccuracy));
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtavgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtavgActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtavgActionPerformed
 
     /**
      * @param args the command line arguments
