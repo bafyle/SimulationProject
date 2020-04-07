@@ -1,12 +1,12 @@
 package simulationproject;
-import GUI.*;
+import myGUI.*;
 import javax.swing.*;
 import java.awt.*;
 
 public class Main
 {
     public static void main(String[] args) {
-        // TODO code application logic here
+        /*// TODO code application logic here
         
         JFrame f=new JFrame();
         GUI test = new GUI(f);
@@ -21,7 +21,8 @@ public class Main
         
         
         // End of working space
-        f.setVisible(true);
+        f.setVisible(true);*/
+        Home.main(args);
         
     }
 }

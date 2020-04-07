@@ -137,13 +137,14 @@ public class Home extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int count =(int) spCount.getValue();
+        int count =(int)spCount.getValue();
         if(count>0 && count<=15)
         {
             spCount.setEnabled(false);
             btn1.setEnabled(true);
             btn2.setEnabled(true);
-        }else
+        }
+        else
         {
             JOptionPane.showMessageDialog(this, "You must select from 0 to 15");
         }
@@ -152,8 +153,8 @@ public class Home extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         spCount.setEnabled(true);
-            btn1.setEnabled(false);
-            btn2.setEnabled(false);
+        btn1.setEnabled(false);
+        btn2.setEnabled(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed

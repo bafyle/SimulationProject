@@ -25,6 +25,7 @@ public class SecondPage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         txt.requestFocus();
     }
+    int numberOfPresses = 0;
     public int numberOfSteps;
     private double coms = 0.0;
     private int lastRange = 1;
@@ -182,6 +183,7 @@ public class SecondPage extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        
         String getText = txt.getText().trim();
         String getText2 = jTextField1.getText().trim();
         int uniqueNumber;
@@ -190,9 +192,10 @@ public class SecondPage extends javax.swing.JFrame {
         {
             uniqueNumber = Integer.parseInt(getText);
             probabilty = Double.parseDouble(getText2);
+            
             if(uniqueNumber < 0 || probabilty < 0 )
                 JOptionPane.showMessageDialog(this, "Please fill the fields with right value");
-            else if(probabilty >= 1)
+            else if(probabilty >= 1 || coms + probabilty > 1.f)
                 JOptionPane.showMessageDialog(this, "Please fill the fields with right value");
             else
             {
@@ -204,10 +207,17 @@ public class SecondPage extends javax.swing.JFrame {
                 s.rangeMax = (int)(coms * 100);
                 s.uniqueNumber = uniqueNumber;
                 steps.add(s);
-                String range = lastRange + "to " + coms * 100;
+                String range = lastRange + "to " + (int)(coms * 100);
                 lastRange = (int)(coms * 100) + 1;
                 String []row = {Integer.toString(uniqueNumber), Double.toString(probabilty), Double.toString(coms), range};
                 addRow(row);
+            }
+            numberOfPresses++;
+            if(numberOfPresses == numberOfSteps)
+            {
+                jButton3.setEnabled(false);
+                txt.setEnabled(false);
+                jTextField1.setEnabled(false);
             }
         }
         catch(NumberFormatException e)
@@ -235,9 +245,13 @@ public class SecondPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        new Result(steps).setVisible(true);
+        if(coms == 1.f)
+        {
+            this.dispose();
+            new Result(steps).setVisible(true);
+        }
+        else
+            JOptionPane.showConfirmDialog(this, "Wrong data has entered.\nPlease go back and edit you data.", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

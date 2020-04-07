@@ -13,6 +13,7 @@ public class SimulationStep
     public double comulative;
     public int rangeMin;
     public int rangeMax;
+    public long frequency;
     public SimulationStep()
     {
         
