@@ -14,6 +14,7 @@ public class SimulationStep
     public int rangeMin;
     public int rangeMax;
     public long frequency;
+    public int randNumber;
     public SimulationStep()
     {
         

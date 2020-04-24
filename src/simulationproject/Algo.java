@@ -41,7 +41,10 @@ public class Algo
             for(SimulationStep s : steps)
             {
                 if(randNumber >= s.rangeMin && randNumber <= s.rangeMax)
+                {
                     res += s.uniqueNumber;
+                    s.randNumber = randNumber;
+                }
             }
         }
         return res;

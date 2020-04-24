@@ -207,7 +207,7 @@ public class SecondPage extends javax.swing.JFrame {
                 s.rangeMax = (int)(coms * 100);
                 s.uniqueNumber = uniqueNumber;
                 steps.add(s);
-                String range = lastRange + "to " + (int)(coms * 100);
+                String range = lastRange + " to " + (int)(coms * 100);
                 lastRange = (int)(coms * 100) + 1;
                 String []row = {Integer.toString(uniqueNumber), Double.toString(probabilty), Double.toString(coms), range};
                 addRow(row);
