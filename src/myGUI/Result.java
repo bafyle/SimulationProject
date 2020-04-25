@@ -194,6 +194,7 @@ public class Result extends javax.swing.JFrame {
                 {
                     uni = s.uniqueNumber;
                     res += s.uniqueNumber;
+                    break;
                 }   
             }
             String []newRow = {Integer.toString(i+1), Integer.toString(randNumber), Integer.toString(uni)};
