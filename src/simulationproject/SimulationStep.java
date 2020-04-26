@@ -9,8 +9,8 @@ package simulationproject;
 public class SimulationStep
 {
     public int uniqueNumber;
-    public double probabilty;
-    public double comulative;
+    public float probability;
+    public float comulative;
     public int rangeMin;
     public int rangeMax;
     public long frequency;

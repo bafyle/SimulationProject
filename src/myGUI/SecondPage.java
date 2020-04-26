@@ -27,7 +27,7 @@ public class SecondPage extends javax.swing.JFrame {
     }
     int numberOfPresses = 0;
     public int numberOfSteps;
-    private double coms = 0.0;
+    private float coms = 0.f;
     private int lastRange = 1;
     private ArrayList<SimulationStep> steps = new ArrayList<>();
     public void setNumberOfSteps(int s)
@@ -41,7 +41,10 @@ public class SecondPage extends javax.swing.JFrame {
         returningModel.addRow(newRow);
         return returningModel;
     }
-    
+    public void showError(String message)
+    {
+        JOptionPane.showConfirmDialog(this, message, "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,7 +65,10 @@ public class SecondPage extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Monto Carlo Method");
+        setResizable(false);
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,12 +81,12 @@ public class SecondPage extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Numbers of failure", "Probability", "Cumulative Probability", "Interval of Random Numbers"
+                "Event", "Probability", "Cumulative probability", "Interval of random numbers"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton2.setText("Next >");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,7 +109,7 @@ public class SecondPage extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton3.setText("ADD +");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +125,7 @@ public class SecondPage extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setText("Number of failure");
+        jLabel2.setText("Event");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,29 +193,29 @@ public class SecondPage extends javax.swing.JFrame {
         String getText = txt.getText().trim();
         String getText2 = jTextField1.getText().trim();
         int uniqueNumber;
-        double probabilty;
+        float probability;
         try
         {
             uniqueNumber = Integer.parseInt(getText);
-            probabilty = Double.parseDouble(getText2);
+            probability = Float.parseFloat(getText2);
             
-            if(uniqueNumber < 0 || probabilty < 0 )
-                JOptionPane.showMessageDialog(this, "Please fill the fields with right value");
-            else if(probabilty >= 1 || coms + probabilty > 1.f)
-                JOptionPane.showMessageDialog(this, "Please fill the fields with right value");
+            if(uniqueNumber < 0 || probability < 0 )
+                showError("You cannot enter a negative number.");
+            else if(probability >= 1 || coms + probability > 1.f)
+                showError("You cannot enter probability bigger than or equal 1\nAnd, you can't enter a probability makes the comulative number bigger than 1.\nPlease check your input.");
             else
             {
                 SimulationStep s = new SimulationStep();
-                coms += probabilty;
+                coms += probability;
                 s.comulative = coms;
-                s.probabilty = probabilty;
+                s.probability = probability;
                 s.rangeMin = lastRange;
                 s.rangeMax = (int)(coms * 100);
                 s.uniqueNumber = uniqueNumber;
                 steps.add(s);
                 String range = lastRange + " to " + (int)(coms * 100);
                 lastRange = (int)(coms * 100) + 1;
-                String []row = {Integer.toString(uniqueNumber), Double.toString(probabilty), Double.toString(coms), range};
+                String []row = {Integer.toString(uniqueNumber), Float.toString(probability), Float.toString(coms), range};
                 addRow(row);
             }
             numberOfPresses++;
@@ -222,7 +228,7 @@ public class SecondPage extends javax.swing.JFrame {
         }
         catch(NumberFormatException e)
         {
-            JOptionPane.showMessageDialog(this, "Please fill the fields with right value");
+            showError("Please fill the fields with correct values");
         }
         txt.setText("");
         jTextField1.setText("");
@@ -251,7 +257,7 @@ public class SecondPage extends javax.swing.JFrame {
             new Result(steps).setVisible(true);
         }
         else
-            JOptionPane.showConfirmDialog(this, "Wrong data has entered.\nPlease go back and edit you data.", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            showError("Wrong data entered\nPlease check your data and try again.");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

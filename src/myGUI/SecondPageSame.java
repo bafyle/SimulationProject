@@ -28,7 +28,7 @@ public class SecondPageSame extends javax.swing.JFrame {
     }
     private int numberOfSteps;
     private int numberOfPresses = 0;
-    private double coms = 0.0;
+    private float coms = 0.f;
     private int lastRange = 1;
     private long allFrequency = 0;
     private ArrayList<SimulationStep> steps = new ArrayList<>();
@@ -42,6 +42,10 @@ public class SecondPageSame extends javax.swing.JFrame {
     public void setNumberOfSteps(int s)
     {
         numberOfSteps = s;
+    }
+    public void showError(String message)
+    {
+        JOptionPane.showConfirmDialog(this, message, "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -58,7 +62,10 @@ public class SecondPageSame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Monto Carlo Method");
+        setResizable(false);
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,12 +78,12 @@ public class SecondPageSame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Numbers of failure", "Frequency", "Probability", "Cumulative Probability", "Interval of Random Numbers"
+                "Event", "Frequency", "Probability", "Cumulative probability", "Interval of random numbers"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton2.setText("Next >");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,7 +101,7 @@ public class SecondPageSame extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton3.setText("ADD +");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +109,7 @@ public class SecondPageSame extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -109,7 +117,7 @@ public class SecondPageSame extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setText("Number of Event");
+        jLabel2.setText("Event");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,7 +190,7 @@ public class SecondPageSame extends javax.swing.JFrame {
             uniqueNumber = Integer.parseInt(getText);
             freq = Long.parseLong(getText2);
             if(uniqueNumber < 0 || freq < 0 )
-                JOptionPane.showMessageDialog(this, "Please fill the fields with right value");
+                showError("You cannot enter a negative number.");
             else
             {
                 allFrequency += freq;
@@ -204,15 +212,15 @@ public class SecondPageSame extends javax.swing.JFrame {
                 int rowIndex = 0;
                 for(SimulationStep s : steps)
                 {
-                    s.probabilty = (double)s.frequency / (double)allFrequency;
-                    coms += s.probabilty;
+                    s.probability = (float)s.frequency / (float)allFrequency;
+                    coms += s.probability;
                     s.comulative = coms;
                     s.rangeMin = lastRange;
                     s.rangeMax = (int)(coms*100.f);
                     lastRange = (int)(coms*100.f) + 1;
-                    model.setValueAt(s.probabilty, rowIndex, 2);
+                    model.setValueAt(s.probability, rowIndex, 2);
                     model.setValueAt(s.comulative, rowIndex, 3);
-                    String range = s.rangeMin +"to"+s.rangeMax;
+                    String range = s.rangeMin +" to "+ s.rangeMax;
                     model.setValueAt(range, rowIndex, 4);
                     rowIndex++;
                 }
@@ -220,7 +228,7 @@ public class SecondPageSame extends javax.swing.JFrame {
         }
         catch(NumberFormatException e)
         {
-            JOptionPane.showMessageDialog(this, "Please fill the fields with right value");
+            showError("Please fill the fields with correct values");
         }
         txt.setText("");
         jTextField1.setText("");
@@ -249,7 +257,7 @@ public class SecondPageSame extends javax.swing.JFrame {
             new Result(steps).setVisible(true);
         }
         else
-            JOptionPane.showConfirmDialog(this, "Please Enter all the " + numberOfSteps +" data.", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            showError("Wrong data entered\nPlease check your data and try again.");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

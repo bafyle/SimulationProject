@@ -1,0 +1,6 @@
+https://www.youtube.com/watch?v=tARIrxbF-ZA
+
+Launch4j: http://launch4j.sourceforge.net/
+
+if you are using linux or Mac OS, you can use wine to run windows programs on your OS
+wine: https://www.winehq.org/

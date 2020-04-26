@@ -18,16 +18,22 @@ public class Result extends javax.swing.JFrame {
      * Creates new form Result
      */
     private ArrayList<SimulationStep> steps;
-    public Result() {
+    public Result(ArrayList<SimulationStep> s)
+    {
+        steps = s;
         initComponents();
         this.setSize(1280, 720);
         setLocationRelativeTo(null);
         spCount.requestFocus();
         txtavg.setEditable(false);
     }
-    public Result(ArrayList<SimulationStep> s){
-        this();
-        steps = s;
+    public Result()
+    {
+        initComponents();
+        this.setSize(1280, 720);
+        setLocationRelativeTo(null);
+        spCount.requestFocus();
+        txtavg.setEditable(false);
     }
     public javax.swing.table.DefaultTableModel addRow(String []newRow)
     {
@@ -35,12 +41,18 @@ public class Result extends javax.swing.JFrame {
         returningModel.addRow(newRow);
         return returningModel;
     }
-    private double getExpectedValue()
+    public void clearRows()
     {
-        double result = 0.0;
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel)jTable1.getModel();
+        while(model.getRowCount() != 0)
+            model.removeRow(0);
+    }
+    private float getExpectedValue()
+    {
+        float result = 0.f;
         for(SimulationStep s : steps)
         {
-            result += s.probabilty * s.uniqueNumber;
+            result += s.probability * s.uniqueNumber;
         }
         return result;
     }
@@ -65,7 +77,10 @@ public class Result extends javax.swing.JFrame {
         EAvg = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Monto Carlo Method");
+        setResizable(false);
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,7 +90,8 @@ public class Result extends javax.swing.JFrame {
 
         spCount.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
 
-        jButton2.setText("Done");
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton2.setText("Start");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -98,19 +114,21 @@ public class Result extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Period", "Random Number", "Simulated Number during this period"
+                "Period", "Random number", "Simulated number during this period"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setText("Period of Simulation");
+        jLabel2.setText("Simulation times");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("Expected value:");
 
         EAvg.setEditable(false);
         EAvg.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        EAvg.setText(Float.toString(getExpectedValue())
+        );
         EAvg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EAvgActionPerformed(evt);
@@ -180,8 +198,9 @@ public class Result extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        clearRows();
         int simulationAccuracy = (int)spCount.getValue();
-        double res = 0.0;
+        float res = 0.f;
         for(int i = 0; i < simulationAccuracy; i++)
         {
             Random rand = new Random();
@@ -189,7 +208,6 @@ public class Result extends javax.swing.JFrame {
             int uni = 0;
             for(SimulationStep s : steps)
             {
-                
                 if(randNumber >= s.rangeMin && randNumber <= s.rangeMax)
                 {
                     uni = s.uniqueNumber;
@@ -200,8 +218,8 @@ public class Result extends javax.swing.JFrame {
             String []newRow = {Integer.toString(i+1), Integer.toString(randNumber), Integer.toString(uni)};
             addRow(newRow);
         }
-        txtavg.setText(Double.toString(res / simulationAccuracy));
-        EAvg.setText(Double.toString(getExpectedValue()));
+        txtavg.setText(Float.toString(res / simulationAccuracy));
+        EAvg.setText(Float.toString(getExpectedValue()));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtavgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtavgActionPerformed

@@ -54,7 +54,7 @@ public class Algo
         double result = 0.0;
         for(SimulationStep s : steps)
         {
-            result += s.probabilty * s.uniqueNumber;
+            result += s.probability * s.uniqueNumber;
         }
         return result;
     }
