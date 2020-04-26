@@ -43,7 +43,7 @@ public class Home extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Monto Carlo Method");
+        setTitle("Monte Carlo Method");
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N

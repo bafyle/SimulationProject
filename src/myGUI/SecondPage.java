@@ -65,7 +65,7 @@ public class SecondPage extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Monto Carlo Method");
+        setTitle("Monte Carlo Method");
         setResizable(false);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N

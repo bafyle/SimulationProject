@@ -77,7 +77,7 @@ public class Result extends javax.swing.JFrame {
         EAvg = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Monto Carlo Method");
+        setTitle("Monte Carlo Method");
         setResizable(false);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
