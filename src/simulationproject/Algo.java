@@ -43,7 +43,6 @@ public class Algo
                 if(randNumber >= s.rangeMin && randNumber <= s.rangeMax)
                 {
                     res += s.uniqueNumber;
-                    s.randNumber = randNumber;
                 }
             }
         }
