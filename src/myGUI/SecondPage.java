@@ -19,7 +19,8 @@ public class SecondPage extends javax.swing.JFrame {
     /**
      * Creates new form SecondPage
      */
-    public SecondPage() {
+    public SecondPage() 
+    {
         initComponents();
         this.setSize(1280, 720);
         setLocationRelativeTo(null);
@@ -30,6 +31,7 @@ public class SecondPage extends javax.swing.JFrame {
     private float coms = 0.f;
     private int lastRange = 1;
     private ArrayList<SimulationStep> steps = new ArrayList<>();
+    
     public void setNumberOfSteps(int s)
     {
         numberOfSteps = s;
@@ -189,7 +191,6 @@ public class SecondPage extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        
         String getText = txt.getText().trim();
         String getText2 = jTextField1.getText().trim();
         int uniqueNumber;

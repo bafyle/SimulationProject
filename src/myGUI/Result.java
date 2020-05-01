@@ -11,6 +11,7 @@ package myGUI;
  */
 import java.util.Random;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import simulationproject.*;
 public class Result extends javax.swing.JFrame {
 
@@ -55,6 +56,10 @@ public class Result extends javax.swing.JFrame {
             result += s.probability * s.uniqueNumber;
         }
         return result;
+    }
+    public void showError(String message)
+    {
+        JOptionPane.showConfirmDialog(this, message, "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -198,30 +203,35 @@ public class Result extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        clearRows();
         int simulationAccuracy = (int)spCount.getValue();
-        float res = 0.f;
-        for(int i = 0; i < simulationAccuracy; i++)
+        if(simulationAccuracy < 1)
+            showError("Please enter a valid number.");
+        else
         {
-            Random rand = new Random();
-            int randNumber = rand.nextInt((100 - 1) + 1) + 1;
-            int uni = 0;
-            for(SimulationStep s : steps)
+            clearRows();
+            float res = 0.f;
+            for(int i = 0; i < simulationAccuracy; i++)
             {
-                if(randNumber >= s.rangeMin && randNumber <= s.rangeMax)
+                Random rand = new Random();
+                int randNumber = rand.nextInt((100 - 1) + 1) + 1;
+                int uni = 0;
+                for(SimulationStep s : steps)
                 {
-                    uni = s.uniqueNumber;
-                    res += s.uniqueNumber;
-                    break;
-                }   
+                    if(randNumber >= s.rangeMin && randNumber <= s.rangeMax)
+                    {
+                        uni = s.uniqueNumber;
+                        res += s.uniqueNumber;
+                        break;
+                    }   
+                }
+                String []newRow = {Integer.toString(i+1), Integer.toString(randNumber), Integer.toString(uni)};
+                addRow(newRow);
             }
-            String []newRow = {Integer.toString(i+1), Integer.toString(randNumber), Integer.toString(uni)};
-            addRow(newRow);
+            txtavg.setText(Float.toString(res / simulationAccuracy));
+            //EAvg.setText(Float.toString(getExpectedValue()));
+            
         }
-        txtavg.setText(Float.toString(res / simulationAccuracy));
-        //EAvg.setText(Float.toString(getExpectedValue()));
         spCount.setValue(0);
-        spCount.requestFocus();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtavgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtavgActionPerformed
