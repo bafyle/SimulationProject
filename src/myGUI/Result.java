@@ -220,6 +220,8 @@ public class Result extends javax.swing.JFrame {
         }
         txtavg.setText(Float.toString(res / simulationAccuracy));
         //EAvg.setText(Float.toString(getExpectedValue()));
+        spCount.setValue(0);
+        spCount.requestFocus();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtavgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtavgActionPerformed
