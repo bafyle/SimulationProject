@@ -219,7 +219,7 @@ public class Result extends javax.swing.JFrame {
             addRow(newRow);
         }
         txtavg.setText(Float.toString(res / simulationAccuracy));
-        EAvg.setText(Float.toString(getExpectedValue()));
+        //EAvg.setText(Float.toString(getExpectedValue()));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtavgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtavgActionPerformed

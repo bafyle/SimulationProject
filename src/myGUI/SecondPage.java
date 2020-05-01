@@ -217,8 +217,8 @@ public class SecondPage extends javax.swing.JFrame {
                 lastRange = (int)(coms * 100) + 1;
                 String []row = {Integer.toString(uniqueNumber), Float.toString(probability), Float.toString(coms), range};
                 addRow(row);
+                numberOfPresses++;
             }
-            numberOfPresses++;
             if(numberOfPresses == numberOfSteps)
             {
                 jButton3.setEnabled(false);

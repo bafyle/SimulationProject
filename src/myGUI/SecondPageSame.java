@@ -201,8 +201,8 @@ public class SecondPageSame extends javax.swing.JFrame {
                 addRow(row);
                 steps.add(s);
                 System.out.println(allFrequency);
+                numberOfPresses++;
             }
-            numberOfPresses++;
             if(numberOfPresses == numberOfSteps)
             {
                 jButton3.setEnabled(false);
